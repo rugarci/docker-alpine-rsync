@@ -1,9 +1,19 @@
-ARG ALPINE_VERSION=latest
-ARG SOURCE_COMMIT
-ARG VERSION=latest
+ARG ALPINE_BASE="3.12.9"
 
-FROM alpine:$ALPINE_VERSION
+FROM alpine:${ALPINE_BASE}
 
+ARG BUILD_DATE
+ARG VERSION
+ARG VCS_REF
+
+LABEL org.label-schema.build-date=$BUILD_DATE \
+    org.label-schema.name="docker-alpine-rsync" \
+    org.label-schema.version=$VERSION \
+    org.label-schema.vcs-ref=$VCS_REF \
+    org.label-schema.vcs-url="https://github.com/rugarci/docker-alpine-rsync" \
+    org.label-schema.vcs-type="Git" \
+    org.label-schema.schema-version="1.0"
+    
 # Install rsync
 # hadolint ignore=DL3018
 RUN apk add --no-cache rsync && \
@@ -28,12 +38,3 @@ EXPOSE 8730
 
 # Run rsync in daemon mode
 CMD ["rsync", "--daemon", "--no-detach", "--verbose", "--log-file=/dev/stdout", "--port=8730"]
-
-LABEL org.label-schema.name="Alpine rsync service" \
-      org.label-schema.description="Simple alpine based unprivileged rsync service built for many architectures" \
-      org.label-schema.url="https://hub.docker.com/repository/docker/mesaguy/alpine-rsync/" \
-      org.label-schema.vcs-ref=$SOURCE_COMMIT \
-      org.label-schema.vcs-url="https://github.com/mesaguy/docker-alpine-rsync" \
-      org.label-schema.vendor="Mesaguy" \
-      org.label-schema.version=$VERSION \
-      org.label-schema.schema-version="1.0"
