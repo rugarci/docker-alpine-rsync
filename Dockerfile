@@ -22,8 +22,16 @@ mkdir -p /export
 
 # Add a default configuration, this can be overwritten an runtime
 # chroot isn't necessary as the daemon is run as 'nobody'
-RUN printf 'use chroot = no\n\
-read only = yes\n\
+#RUN printf 'use chroot = no\n\
+#read only = yes\n\
+#[mirror]\n\
+#    path = /export\n\
+#    read only = yes\n\
+#    reverse lookup = no\n'\
+#    > /etc/rsyncd.conf
+
+# Add a default configuration, this can be overwritten an runtime
+RUN printf 'read only = yes\n\
 [mirror]\n\
     path = /export\n\
     read only = yes\n\
@@ -31,7 +39,7 @@ read only = yes\n\
     > /etc/rsyncd.conf
 
 # Run unprivileged
-USER nobody
+#USER nobody
 
 # Expose port 8730 rather than default 873
 EXPOSE 8730
