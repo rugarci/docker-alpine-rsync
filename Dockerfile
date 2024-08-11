@@ -32,6 +32,7 @@ mkdir -p /export
 
 # Add a default configuration, this can be overwritten an runtime
 RUN printf 'read only = yes\n\
+reverse lookup = no\n\
 [mirror]\n\
     path = /export\n\
     read only = yes\n\
