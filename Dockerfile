@@ -16,7 +16,7 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
     
 # Install rsync
 # hadolint ignore=DL3018
-RUN apk add --no-cache rsync && \
+RUN apk add --no-cache rsync tzdata && \
 # Make a root directory to share by default
 mkdir -p /export
 
