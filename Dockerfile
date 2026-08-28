@@ -1,4 +1,4 @@
-ARG ALPINE_BASE=3.21.2
+ARG ALPINE_BASE=3.24.1
 
 FROM alpine:${ALPINE_BASE}
 
@@ -31,7 +31,10 @@ mkdir -p /export
 #    > /etc/rsyncd.conf
 
 # Add a default configuration, this can be overwritten an runtime
-RUN printf 'read only = yes\n\
+RUN printf 'uid = root\n\
+gid = root\n\
+use chroot = no\n\
+read only = yes\n\
 reverse lookup = no\n\
 [mirror]\n\
     path = /export\n\
